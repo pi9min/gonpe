@@ -1,8 +1,9 @@
 # ponpe-server
 
-ponpe-server is video streaming server written by golang.
+ponpe-server is video management server written by golang.
 
 # Requirement
 
 - go1.8+
+- GAE(Google App Engine)
 
