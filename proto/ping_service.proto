@@ -1,0 +1,14 @@
+syntax = "proto3";
+package ping;
+
+import "google/api/annotations.proto";
+import "ping.proto";
+
+service HealthCheckService {
+    rpc Ping(PingRequest) returns (PingResponse) {
+        option (google.api.http) = {
+            post: "/HealthCheckService/Ping"
+            body: "*"
+        };
+    }
+}

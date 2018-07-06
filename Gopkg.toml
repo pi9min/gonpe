@@ -28,3 +28,13 @@
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  name = "github.com/go-chi/chi"
+  version = "3.3.2"
+
+[[constraint]]
+  name = "google.golang.org/appengine"
+
+[[constraint]]
+  name = "github.com/golang/protobuf"
