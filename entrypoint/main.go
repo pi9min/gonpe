@@ -2,10 +2,19 @@ package entrypoint
 
 import (
 	"net/http"
+
+	"github.com/go-chi/chi"
 )
 
 func init() {
-	http.HandleFunc("/v1/HelloService.Ping", Ping)
+	r := chi.NewRouter()
+
+	// v1
+	r.Route("/v1", func(r chi.Router) {
+		r.HandleFunc("/HelloService.Ping", Ping)
+	})
+
+	http.Handle("/", r)
 }
 
 func Ping(w http.ResponseWriter, r *http.Request) {
