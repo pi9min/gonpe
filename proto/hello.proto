@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ping;
+package hello;
 
 message PingRequest {}
 message PingResponse {
