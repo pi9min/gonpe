@@ -1,8 +1,0 @@
-syntax = "proto3";
-package hello;
-
-message PingRequest {}
-message PingResponse {
-    string message = 1;
-}
-

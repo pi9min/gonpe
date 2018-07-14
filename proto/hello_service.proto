@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-package hello;
-
-import "hello.proto";
-
-service HelloService {
-    rpc Ping(PingRequest) returns (PingResponse);
-}

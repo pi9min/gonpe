@@ -20,12 +20,6 @@ export PATH := $(ROOT)/bin:$(ROOT)/scripts:$(ROOT)/scripts/lib:$(PATH)
 ######## Rules
 DEFAULT_SERVICE := "default"
 
-gen:
-	(cd proto; ./protogen.sh)
-
-clean:
-	(cd proto; ./protoclean.sh)
-
 dep:
 	dep ensure -v
 
