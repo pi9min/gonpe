@@ -2,14 +2,30 @@
 
 
 [[projects]]
+  digest = "1:66ddebb274faa160a4a23394a17ad3c8e15fee9bf5408d13f77d22b61bc7f072"
   name = "github.com/go-chi/chi"
   packages = ["."]
+  pruneopts = "UT"
   revision = "e83ac2304db3c50cf03d96a2fcd39009d458bc35"
   version = "v3.3.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:1ecf2a49df33be51e757d0033d5d51d5f784f35f68e5a38f797b2d3f03357d71"
+  name = "golang.org/x/crypto"
+  packages = [
+    "bcrypt",
+    "blowfish",
+  ]
+  pruneopts = "UT"
+  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d8847b13dd6bae15bd8d420b8823661fa2dd770ba6b97df25a032ddc0eb1343e"
+  input-imports = [
+    "github.com/go-chi/chi",
+    "golang.org/x/crypto/bcrypt",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

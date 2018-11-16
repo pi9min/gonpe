@@ -9,9 +9,10 @@ import (
 func Init() http.Handler {
 	r := chi.NewRouter()
 
-	// v1
 	r.Route("/v1", func(r chi.Router) {
-		r.HandleFunc("/HelloService.Ping", Ping)
+		r.HandleFunc("/Ping", func(w http.ResponseWriter, _ *http.Request) {
+			w.Write([]byte("Ping"))
+		})
 	})
 
 	return r
