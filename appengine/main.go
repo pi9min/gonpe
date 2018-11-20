@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/ponpe/server/config"
+
 	"github.com/ponpe/server/application"
 	"github.com/ponpe/server/application/repository"
 	"github.com/ponpe/server/handler"
@@ -23,6 +25,8 @@ func main() {
 }
 
 func init() {
+	config.Setup()
+
 	repos := repository.NewAllRepository()
 	authApp := application.NewAuthenticationApp(
 		repos,
