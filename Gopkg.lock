@@ -26,6 +26,14 @@
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:edbef42561faa44c19129b68d1e109fbc1647f63239250391eadc8d0e7c9f669"
+  name = "github.com/kelseyhightower/envconfig"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f611eb38b3875cc3bd991ca91c51d06446afa14c"
+  version = "v1.3.0"
+
+[[projects]]
   branch = "master"
   digest = "1:6ca51c5d8a610b3da56856df7a8f8f3e075eba8d5f7a4acbadd79b2d2a368054"
   name = "golang.org/x/net"
@@ -122,6 +130,7 @@
     "github.com/go-chi/chi",
     "github.com/golang/protobuf/jsonpb",
     "github.com/golang/protobuf/proto",
+    "github.com/kelseyhightower/envconfig",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
   ]
