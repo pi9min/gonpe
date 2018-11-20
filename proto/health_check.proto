@@ -1,0 +1,13 @@
+syntax = "proto3";
+package ponpe.server;
+option go_package = "pb";
+
+service HealthCheck {
+    rpc Ping(PingReq) returns (PingResp);
+}
+
+message PingReq {}
+
+message PingResp {
+    string text = 1;
+}

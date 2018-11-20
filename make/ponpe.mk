@@ -12,19 +12,24 @@ ifeq ($(OS),Darwin)
 export SHELL := $(shell echo $$SHELL)
 endif
 
-# Set script path
+# set root path
 MAKE_DIR:= $(dir $(lastword $(MAKEFILE_LIST)))
 ROOT := $(realpath $(MAKE_DIR)/..)
-export PATH := $(ROOT)/bin:$(ROOT)/scripts:$(ROOT)/scripts/lib:$(PATH)
+
+######## Vars
+DEV_STORAGE_PATH := "/tmp/ponpe_devappserver_storage"
+APPYAML_PATH := "$(ROOT)/appengine/app.yaml"
+PROTO_PATH := "$(ROOT)/proto"
 
 ######## Rules
-DEFAULT_SERVICE := "default"
-
 dep:
 	dep ensure -v
 
-test:
-	test.sh ./...
+clean:
+	rm -f $(PROTO_PATH)/**/*{pb,http}.go
 
-run:
-	serve.sh 4040 $(DEFAULT_SERVICE)
+gen:
+	protoc --proto_path=$(PROTO_PATH) --go_out=plugins=grpc:$(PROTO_PATH) --gohttp_out=$(PROTO_PATH) $(PROTO_PATH)/**/*.proto
+
+run: gen
+	dev_appserver.py --port=4040 $(APPYAML_PATH)
