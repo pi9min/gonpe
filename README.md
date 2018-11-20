@@ -18,3 +18,19 @@ go get -u github.com/nametake/protoc-gen-gohttp
 # Google Cloud SDK
 curl https://sdk.cloud.google.com | bash
 ```
+
+# Install dependency
+
+`make dep`
+
+# Serve
+
+`make run`
+
+# Gen proto
+
+`make gen`
+
+# Clean
+
+`make clean`
