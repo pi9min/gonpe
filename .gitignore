@@ -2,3 +2,5 @@ vendor/*
 *.pb.go
 *.http.go
 
+# secrets
+app.yaml
