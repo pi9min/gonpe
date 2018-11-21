@@ -28,7 +28,7 @@ func init() {
 	config.Setup()
 
 	repos := repository.NewAllRepository()
-	authApp := application.NewAuthenticationApp(
+	authApp := application.NewAdminApp(
 		repos,
 	)
 

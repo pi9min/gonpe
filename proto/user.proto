@@ -1,0 +1,18 @@
+syntax = "proto3";
+package ponpe.server.user;
+option go_package = "pb";
+
+import "google/protobuf/timestamp.proto";
+
+message User {
+    string id = 1;
+    enum Role {
+        ROLE_GUEST = 0;
+        ROLE_VIEWER = 1;
+        ROLE_ADMIN = 2;
+    }
+    Role role = 2;
+    string email = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+}

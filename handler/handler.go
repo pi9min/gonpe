@@ -1,38 +1,37 @@
 package handler
 
 import (
-	"context"
 	"net/http"
-
-	"github.com/ponpe/server/proto"
 
 	"github.com/go-chi/chi"
 	"github.com/ponpe/server/application"
+	"github.com/ponpe/server/proto"
 )
 
 type Handler struct {
-	authApp *application.AuthenticationApp
+	adminApp *application.AdminApp
 }
 
-func NewHandler(authApp *application.AuthenticationApp) http.Handler {
+func NewHandler(adminApp *application.AdminApp) http.Handler {
 	h := &Handler{
-		authApp: authApp,
+		adminApp: adminApp,
 	}
-	hcHandler := pb.NewHealthCheckHandler(h)
+	hcConv := pb.NewHealthCheckHTTPConverter(h)
+	adminConv := pb.NewAdminHTTPConverter(h)
 
 	r := chi.NewRouter()
 	r.Route("/v1", func(r chi.Router) {
-		// Health check
+		// HealthCheck
 		r.Route("/HealthCheck", func(r chi.Router) {
-			r.HandleFunc("/Ping", hcHandler.Ping(nil))
+			r.Post("/Ping", hcConv.Ping(withErrorLog))
+		})
+
+		// Admin
+		r.Route("/Admin", func(r chi.Router) {
+			r.Post("/GetAllUser", adminConv.GetAllUser(withErrorLog))
+			r.Post("/CreateGuestUser", adminConv.CreateGuestUser(withErrorLog))
 		})
 	})
 
 	return r
-}
-
-func (h *Handler) Ping(ctx context.Context, req *pb.PingReq) (*pb.PingResp, error) {
-	return &pb.PingResp{
-		Text: "Ping",
-	}, nil
 }
