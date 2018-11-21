@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -16,22 +17,25 @@ func NewHandler(adminApp *application.AdminApp) http.Handler {
 	h := &Handler{
 		adminApp: adminApp,
 	}
-	hcConv := pb.NewHealthCheckHTTPConverter(h)
+	healthCheckConv := pb.NewHealthCheckHTTPConverter(h)
 	adminConv := pb.NewAdminHTTPConverter(h)
 
 	r := chi.NewRouter()
 	r.Route("/v1", func(r chi.Router) {
 		// HealthCheck
-		r.Route("/HealthCheck", func(r chi.Router) {
-			r.Post("/Ping", hcConv.Ping(withErrorLog))
-		})
+		r.Post(csRestPath(healthCheckConv.PingWithName(withErrorLog)))
 
 		// Admin
-		r.Route("/Admin", func(r chi.Router) {
-			r.Post("/GetAllUser", adminConv.GetAllUser(withErrorLog))
-			r.Post("/CreateGuestUser", adminConv.CreateGuestUser(withErrorLog))
-		})
+		r.Post(csRestPath(adminConv.GetAllUserWithName(withErrorLog)))
+		r.Post(csRestPath(adminConv.CreateGuestUserWithName(withErrorLog)))
 	})
 
 	return r
+}
+
+// csRestPath is make Case-Sensitive REST path.
+// e.g. service: Foo, method: Bar
+// -> "/Foo/Bar"
+func csRestPath(service, method string, hfn http.HandlerFunc) (string, http.HandlerFunc) {
+	return fmt.Sprintf("/%s/%s", service, method), hfn
 }
