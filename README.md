@@ -1,6 +1,6 @@
-# ponpe-server
+# gonpe
 
-ponpe-server is video management server written by golang.
+gonpe is video management server written by golang.
 
 # Setup
 
