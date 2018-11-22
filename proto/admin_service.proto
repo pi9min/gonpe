@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ponpe.server.admin_service;
+package gonpe.server.admin_service;
 option go_package = "pb";
 
 import "user.proto";
@@ -14,7 +14,7 @@ service Admin {
 message GetAllUserReq {}
 
 message GetAllUserResp {
-    repeated ponpe.server.user.User users = 1;
+    repeated gonpe.server.user.User users = 1;
 }
 
 message CreateGuestUserReq {

@@ -8,10 +8,10 @@ type Config struct {
 	MysqlDsn string `required:"true" split_words:"true"`
 }
 
-var Ponpe Config
+var Gonpe Config
 
 func Setup() {
-	if err := envconfig.Process("ponpe", &Ponpe); err != nil {
+	if err := envconfig.Process("gonpe", &Gonpe); err != nil {
 		panic(err)
 	}
 }

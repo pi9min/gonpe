@@ -19,7 +19,7 @@ func NewAllRepository() *AllRepository {
 		return repos
 	}
 
-	mysqlCli, err := mysql.NewClient(config.Ponpe.MysqlDsn)
+	mysqlCli, err := mysql.NewClient(config.Gonpe.MysqlDsn)
 	if err != nil {
 		panic(err)
 	}

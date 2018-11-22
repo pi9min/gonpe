@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ponpe.server.health_check_service;
+package gonpe.server.health_check_service;
 option go_package = "pb";
 
 service HealthCheck {

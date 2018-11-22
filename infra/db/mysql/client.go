@@ -27,7 +27,7 @@ func NewClient(dsn string) (*client, error) {
 			Encoding: "utf8mb4",
 		},
 	}
-	dbMap.TraceOn("[SQL]", log.New(os.Stdout, "ponpe:", log.Lmicroseconds))
+	dbMap.TraceOn("[SQL]", log.New(os.Stdout, "gonpe:", log.Lmicroseconds))
 
 	// 各種初期化
 	// table/indexなどを全て生成

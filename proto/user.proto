@@ -1,5 +1,5 @@
 syntax = "proto3";
-package ponpe.server.user;
+package gonpe.server.user;
 option go_package = "pb";
 
 import "google/protobuf/timestamp.proto";
