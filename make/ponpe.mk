@@ -18,7 +18,10 @@ ROOT := $(realpath $(MAKE_DIR)/..)
 
 ######## Vars
 DEV_STORAGE_PATH := "/tmp/ponpe_devappserver_storage"
+DEV_APPYAML_PATH := "$(ROOT)/appengine/app.local.yaml"
 APPYAML_PATH := "$(ROOT)/appengine/app.yaml"
+CRONYAML_PATH := "$(ROOT)/appengine/cron.yaml"
+DISPATCHYAML_PATH := "$(ROOT)/appengine/dispatch.yaml"
 PROTO_PATH := "$(ROOT)/proto"
 
 ######## Rules
@@ -31,5 +34,18 @@ clean:
 gen:
 	protoc --proto_path=$(PROTO_PATH) --go_out=plugins=grpc:$(PROTO_PATH) --gohttp_out=$(PROTO_PATH) $(PROTO_PATH)/**/*.proto
 
+test: gen
+	go test ./...
+	go vet ./...
+
 run: gen
-	dev_appserver.py --port=4040 $(APPYAML_PATH)
+	dev_appserver.py --port=4040 $(DEV_APPYAML_PATH)
+
+deploy: gen
+	gcloud app deploy $(APPYAML_PATH)
+
+deploy_cron:
+	gcloud app deploy $(CRONYAML_PATH)
+
+deploy_dispatch:
+	gcloud app deploy $(DISPATCHYAML_PATH)
