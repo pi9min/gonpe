@@ -1,1 +1,1 @@
-include make/ponpe.mk
+include make/server.mk

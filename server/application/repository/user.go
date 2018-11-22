@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 
-	"github.com/pi9min/gonpe/domain"
-	"gopkg.in/gorp.v2"
+	"github.com/pi9min/gonpe/server/domain"
+	"github.com/pi9min/gorp"
 )
 
 type User interface {

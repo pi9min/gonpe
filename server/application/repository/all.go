@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"github.com/pi9min/gonpe/config"
-	"github.com/pi9min/gonpe/infra/db/mysql"
-	"github.com/pi9min/gonpe/infra/db/mysql/user"
-	"gopkg.in/gorp.v2"
+	"github.com/pi9min/gonpe/server/config"
+	"github.com/pi9min/gonpe/server/infra/db/mysql"
+	"github.com/pi9min/gonpe/server/infra/db/mysql/user"
+	"github.com/pi9min/gorp"
 )
 
 type AllRepository struct {
