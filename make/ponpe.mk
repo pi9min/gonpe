@@ -26,7 +26,7 @@ PROTO_PATH := "$(ROOT)/proto"
 
 ######## Rules
 dep:
-	dep ensure -v
+	go mod download
 
 clean:
 	rm -f $(PROTO_PATH)/**/*{pb,http}.go
