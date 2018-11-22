@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/ponpe/server/config"
-
-	"github.com/ponpe/server/application"
-	"github.com/ponpe/server/application/repository"
-	"github.com/ponpe/server/handler"
+	"github.com/pi9min/gonpe/application"
+	"github.com/pi9min/gonpe/application/repository"
+	"github.com/pi9min/gonpe/config"
+	"github.com/pi9min/gonpe/handler"
 )
 
 func main() {

@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/ponpe/server/application/repository"
-	"github.com/ponpe/server/domain"
+	"github.com/pi9min/gonpe/application/repository"
+	"github.com/pi9min/gonpe/domain"
 )
 
 type AdminApp struct {

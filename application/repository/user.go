@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/ponpe/server/domain"
+	"github.com/pi9min/gonpe/domain"
 	"gopkg.in/gorp.v2"
 )
 

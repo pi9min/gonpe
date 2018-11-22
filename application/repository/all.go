@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"github.com/ponpe/server/config"
-	"github.com/ponpe/server/infra/db/mysql"
-	"github.com/ponpe/server/infra/db/mysql/user"
+	"github.com/pi9min/gonpe/config"
+	"github.com/pi9min/gonpe/infra/db/mysql"
+	"github.com/pi9min/gonpe/infra/db/mysql/user"
 	"gopkg.in/gorp.v2"
 )
 

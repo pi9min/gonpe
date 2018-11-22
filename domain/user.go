@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/ptypes"
-	"github.com/ponpe/server/proto"
-	mysqlutil "github.com/ponpe/server/util/mysql"
+	"github.com/pi9min/gonpe/proto"
+	mysqlutil "github.com/pi9min/gonpe/util/mysql"
 )
 
 type User struct {

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ponpe/server/domain"
-	"github.com/ponpe/server/proto"
-	mysqlutil "github.com/ponpe/server/util/mysql"
+	"github.com/pi9min/gonpe/domain"
+	"github.com/pi9min/gonpe/proto"
+	mysqlutil "github.com/pi9min/gonpe/util/mysql"
 	"gopkg.in/gorp.v2"
 )
 

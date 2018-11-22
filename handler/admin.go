@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/ponpe/server/proto"
+	"github.com/pi9min/gonpe/proto"
 )
 
 func (h *Handler) GetAllUser(ctx context.Context, req *pb.GetAllUserReq) (*pb.GetAllUserResp, error) {

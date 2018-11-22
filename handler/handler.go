@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/ponpe/server/application"
-	"github.com/ponpe/server/proto"
+	"github.com/pi9min/gonpe/application"
+	"github.com/pi9min/gonpe/proto"
 )
 
 type Handler struct {
