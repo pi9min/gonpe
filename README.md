@@ -8,11 +8,22 @@ installation
 
 ```
 # language, library
-brew install go (ver 1.11+)
-brew install protobuf (ver 3+)
+
+# go, protobuf
+brew install go (v1.11+)
+brew install protobuf (v3+)
 go get -u google.golang.org/grpc
 go get -u github.com/golang/protobuf/protoc-gen-go
 go get -u github.com/nametake/protoc-gen-gohttp
+
+# node, npm, yarn
+brew install nodebrew
+nodebrew setup
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+nodebrew install <v10+>
+nodebrew use <installed_version>
+npm update -g npm
+npm i -g yarn
 
 # Google Cloud SDK
 curl https://sdk.cloud.google.com | bash
