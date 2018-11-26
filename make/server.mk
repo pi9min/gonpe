@@ -31,17 +31,25 @@ dep:
 	cd $(SERVER_ROOT); go mod download
 
 clean:
-	rm -f $(PROTO_PATH)/**/*{pb,http}.go
+	rm -f $(PROTO_PATH)/**/*{pb,http,validate}.go
 
 gen:
-	protoc --proto_path=$(PROTO_PATH) --go_out=plugins=grpc:$(PROTO_PATH) --gohttp_out=$(PROTO_PATH) --validate_out=lang=go:$(PROTO_PATH) $(PROTO_PATH)/**/*.proto
+	protoc \
+	-I $(PROTO_PATH) \
+	-I $(GOPATH)/src \
+	-I $(GOPATH)/src/github.com/lyft/protoc-gen-validate \
+	--proto_path=$(PROTO_PATH) \
+	--go_out=plugins=grpc:$(PROTO_PATH) \
+	--gohttp_out=$(PROTO_PATH) \
+	--validate_out=lang=go:$(PROTO_PATH) \
+	$(PROTO_PATH)/**/*.proto
 
 test: gen
 	cd $(SERVER_ROOT); go test ./...
 	cd $(SERVER_ROOT); go vet ./...
 
 run: gen
-	dev_appserver.py --port=4040 $(DEV_APPYAML_PATH)
+	dev_appserver.py --support_datastore_emulator=False --port=4040 $(DEV_APPYAML_PATH)
 
 deploy: gen
 	gcloud app deploy $(APPYAML_PATH)

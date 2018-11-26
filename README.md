@@ -12,6 +12,7 @@ installation
 # go, protobuf
 brew install go (v1.11+)
 brew install protobuf (v3+)
+go get -d github.com/lyft/protoc-gen-validate (fetch src)
 
 # node, npm, yarn
 brew install nodebrew

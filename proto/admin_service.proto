@@ -6,20 +6,7 @@ import "user.proto";
 
 // Endpoint
 service Admin {
-    rpc GetAllUser(GetAllUserReq) returns (GetAllUserResp);
-    rpc CreateGuestUser(CreateGuestUserReq) returns (CreateGuestUserResp);
+    rpc GetAllUser(gonpe.server.user.GetAllUserReq) returns (gonpe.server.user.GetAllUserResp);
+    rpc CreateGuestUser(gonpe.server.user.CreateGuestUserReq) returns (gonpe.server.user.CreateGuestUserResp);
 }
 
-// Req / Resp
-message GetAllUserReq {}
-
-message GetAllUserResp {
-    repeated gonpe.server.user.User users = 1;
-}
-
-message CreateGuestUserReq {
-    string email = 1;
-    string password = 2;
-}
-
-message CreateGuestUserResp {}

@@ -3,16 +3,31 @@ package gonpe.server.user;
 option go_package = "pb";
 
 import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
 
 message User {
-    string id = 1;
+    string id = 1 [(validate.rules).string.len = 20];
     enum Role {
         ROLE_GUEST = 0;
         ROLE_VIEWER = 1;
         ROLE_ADMIN = 2;
     }
-    Role role = 2;
-    string email = 3;
-    google.protobuf.Timestamp created_at = 4;
-    google.protobuf.Timestamp updated_at = 5;
+    Role role = 2 [(validate.rules).enum.defined_only = true];
+    string email = 3 [(validate.rules).string.email = true];
+    google.protobuf.Timestamp created_at = 4 [(validate.rules).timestamp.required = true];
+    google.protobuf.Timestamp updated_at = 5 [(validate.rules).timestamp.required = true];
 }
+
+// Req / Resp
+message GetAllUserReq {}
+
+message GetAllUserResp {
+    repeated gonpe.server.user.User users = 1;
+}
+
+message CreateGuestUserReq {
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2 [(validate.rules).string.min_len = 12];
+}
+
+message CreateGuestUserResp {}

@@ -6,7 +6,7 @@ require (
 	github.com/golang/protobuf v1.2.0
 	github.com/kelseyhightower/envconfig v1.3.0
 	github.com/lyft/protoc-gen-star v0.4.5 // indirect
-	github.com/lyft/protoc-gen-validate v0.0.11 // indirect
+	github.com/lyft/protoc-gen-validate v0.0.11
 	github.com/nametake/protoc-gen-gohttp v0.0.0-20181121045253-2ebc4a7615c2 // indirect
 	github.com/pi9min/gorp v2.0.0+incompatible
 	github.com/rs/xid v1.2.1

@@ -8,11 +8,14 @@ import (
 )
 
 func (h *Handler) GetAllUser(ctx context.Context, req *pb.GetAllUserReq) (*pb.GetAllUserResp, error) {
+	if err := req.Validate(); err != nil {
+		return nil, err
+	}
+
 	users, err := h.adminApp.GetAllUser(ctx)
 	if err != nil {
 		return nil, err
 	}
-
 	pUsers := make([]*pb.User, 0, len(users))
 	for i := range users {
 		pu, err := users[i].Proto()
@@ -30,6 +33,11 @@ func (h *Handler) GetAllUser(ctx context.Context, req *pb.GetAllUserReq) (*pb.Ge
 
 func (h *Handler) CreateGuestUser(ctx context.Context, req *pb.CreateGuestUserReq) (*pb.CreateGuestUserResp, error) {
 	now := time.Now()
+
+	if err := req.Validate(); err != nil {
+		return nil, err
+	}
+
 	if err := h.adminApp.CreateUser(ctx, req.Email, req.Password, now); err != nil {
 		return nil, err
 	}
