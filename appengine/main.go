@@ -27,9 +27,13 @@ func init() {
 	config.Setup()
 
 	repos := repository.NewAllRepository()
-	authApp := application.NewAdminApp(
-		repos,
+	adminApp := application.NewAdminApp(repos)
+	authenticationApp := application.NewAuthenticationApp(repos)
+
+	h := handler.NewHandler(
+		adminApp,
+		authenticationApp,
 	)
 
-	http.Handle("/", handler.NewHandler(authApp))
+	http.Handle("/", h)
 }

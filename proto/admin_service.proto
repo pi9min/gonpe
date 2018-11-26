@@ -3,10 +3,24 @@ package gonpe.server.admin_service;
 option go_package = "pb";
 
 import "user.proto";
+import "validate/validate.proto";
 
 // Endpoint
 service Admin {
-    rpc GetAllUser(gonpe.server.user.GetAllUserReq) returns (gonpe.server.user.GetAllUserResp);
-    rpc CreateGuestUser(gonpe.server.user.CreateGuestUserReq) returns (gonpe.server.user.CreateGuestUserResp);
+    rpc GetAllUser(GetAllUserReq) returns (GetAllUserResp);
+    rpc CreateGuestUser(CreateGuestUserReq) returns (CreateGuestUserResp);
 }
 
+// Req / Resp
+message GetAllUserReq {}
+
+message GetAllUserResp {
+    repeated gonpe.server.user.User users = 1;
+}
+
+message CreateGuestUserReq {
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2 [(validate.rules).string.min_len = 12];
+}
+
+message CreateGuestUserResp {}

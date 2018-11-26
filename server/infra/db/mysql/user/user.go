@@ -99,6 +99,23 @@ func (*repo) Get(ctx context.Context, sqle gorp.SqlExecutor, id string) (*domain
 	return e.Domain(), nil
 }
 
+func (*repo) GetByEmail(ctx context.Context, sqle gorp.SqlExecutor, email string) (*domain.User, error) {
+	var e Entity
+	q := strings.Join([]string{
+		"SELECT * FROM",
+		tableName,
+		"WHERE email=?",
+	}, " ")
+	if err := sqle.SelectOne(&e, q, email); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, domain.ErrNotFound
+		}
+		return nil, err
+	}
+
+	return e.Domain(), nil
+}
+
 func (*repo) GetAll(ctx context.Context, sqle gorp.SqlExecutor) ([]*domain.User, error) {
 	var es []*Entity
 	q := strings.Join([]string{

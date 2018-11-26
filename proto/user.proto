@@ -18,16 +18,3 @@ message User {
     google.protobuf.Timestamp updated_at = 5 [(validate.rules).timestamp.required = true];
 }
 
-// Req / Resp
-message GetAllUserReq {}
-
-message GetAllUserResp {
-    repeated gonpe.server.user.User users = 1;
-}
-
-message CreateGuestUserReq {
-    string email = 1 [(validate.rules).string.email = true];
-    string password = 2 [(validate.rules).string.min_len = 12];
-}
-
-message CreateGuestUserResp {}

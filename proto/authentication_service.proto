@@ -1,0 +1,20 @@
+syntax = "proto3";
+package gonpe.server.authentication_service;
+option go_package = "pb";
+
+import "validate/validate.proto";
+
+// Endpoint
+service Authentication {
+    rpc SignIn(SignInReq) returns (SignInResp);
+}
+
+// Req / Resp
+message SignInReq {
+    string email = 1 [(validate.rules).string.email = true];
+    string password = 2 [(validate.rules).string.min_len = 12];
+}
+
+message SignInResp {
+    string access_token = 1;
+}

@@ -10,15 +10,21 @@ import (
 )
 
 type Handler struct {
-	adminApp *application.AdminApp
+	adminApp          *application.AdminApp
+	authenticationApp *application.AuthenticationApp
 }
 
-func NewHandler(adminApp *application.AdminApp) http.Handler {
+func NewHandler(
+	adminApp *application.AdminApp,
+	authenticationApp *application.AuthenticationApp,
+) http.Handler {
 	h := &Handler{
-		adminApp: adminApp,
+		adminApp:          adminApp,
+		authenticationApp: authenticationApp,
 	}
 	healthCheckConv := pb.NewHealthCheckHTTPConverter(h)
 	adminConv := pb.NewAdminHTTPConverter(h)
+	authenticationConv := pb.NewAuthenticationHTTPConverter(h)
 
 	r := chi.NewRouter()
 	r.Route("/v1", func(r chi.Router) {
@@ -28,6 +34,9 @@ func NewHandler(adminApp *application.AdminApp) http.Handler {
 		// Admin
 		r.Post(csRestPath(adminConv.GetAllUserWithName(withErrorLog)))
 		r.Post(csRestPath(adminConv.CreateGuestUserWithName(withErrorLog)))
+
+		// Authentication
+		r.Post(csRestPath(authenticationConv.SignInWithName(withErrorLog)))
 	})
 
 	return r
