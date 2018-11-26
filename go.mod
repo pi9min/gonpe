@@ -5,6 +5,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.2.0
 	github.com/kelseyhightower/envconfig v1.3.0
+	github.com/nametake/protoc-gen-gohttp v0.0.0-20181121045253-2ebc4a7615c2 // indirect
 	github.com/pi9min/gorp v2.0.0+incompatible
 	github.com/rs/xid v1.2.1
 	golang.org/x/crypto v0.0.0-20181112202954-3d3f9f413869
