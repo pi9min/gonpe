@@ -34,7 +34,7 @@ clean:
 	rm -f $(PROTO_PATH)/**/*{pb,http}.go
 
 gen:
-	protoc --proto_path=$(PROTO_PATH) --go_out=plugins=grpc:$(PROTO_PATH) --gohttp_out=$(PROTO_PATH) $(PROTO_PATH)/**/*.proto
+	protoc --proto_path=$(PROTO_PATH) --go_out=plugins=grpc:$(PROTO_PATH) --gohttp_out=$(PROTO_PATH) --validate_out=lang=go:$(PROTO_PATH) $(PROTO_PATH)/**/*.proto
 
 test: gen
 	cd $(SERVER_ROOT); go test ./...
