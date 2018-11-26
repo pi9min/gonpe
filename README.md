@@ -7,8 +7,6 @@ gonpe is video management server written by golang.
 installation
 
 ```
-# language, library
-
 # go, protobuf
 brew install go (v1.11+)
 brew install protobuf (v3+)

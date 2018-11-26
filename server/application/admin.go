@@ -23,7 +23,15 @@ func (a *AdminApp) GetAllUser(ctx context.Context) ([]*domain.User, error) {
 }
 
 func (a *AdminApp) CreateUser(ctx context.Context, email, password string, now time.Time) error {
-	// TODO: validation(email, password length, etc...)
+	exist, err := a.repos.User.ExistByEmail(ctx, a.repos.MySQL, email)
+	if err != nil {
+		return err
+	}
+
+	if exist {
+		return ErrUserAlreadyExist
+	}
+
 	u := domain.NewGuest(email, now)
 	if err := u.SetPassword(password); err != nil {
 		return err

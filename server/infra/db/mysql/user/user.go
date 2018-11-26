@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"database/sql"
 	"strings"
 	"time"
 
@@ -64,6 +65,40 @@ func NewRepository() *repo {
 	return &repo{}
 }
 
+func (*repo) ExistByEmail(ctx context.Context, sqle gorp.SqlExecutor, email string) (bool, error) {
+	var e Entity
+	q := strings.Join([]string{
+		"SELECT * FROM",
+		tableName,
+		"WHERE email=?",
+	}, " ")
+	if err := sqle.SelectOne(&e, q, email); err != nil {
+		if err == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, err
+	}
+
+	return true, nil
+}
+
+func (*repo) Get(ctx context.Context, sqle gorp.SqlExecutor, id string) (*domain.User, error) {
+	var e Entity
+	q := strings.Join([]string{
+		"SELECT * FROM",
+		tableName,
+		"WHERE id=?",
+	}, " ")
+	if err := sqle.SelectOne(&e, q, id); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, domain.ErrNotFound
+		}
+		return nil, err
+	}
+
+	return e.Domain(), nil
+}
+
 func (*repo) GetAll(ctx context.Context, sqle gorp.SqlExecutor) ([]*domain.User, error) {
 	var es []*Entity
 	q := strings.Join([]string{
@@ -81,20 +116,6 @@ func (*repo) GetAll(ctx context.Context, sqle gorp.SqlExecutor) ([]*domain.User,
 	}
 
 	return ds, nil
-}
-
-func (*repo) Get(ctx context.Context, sqle gorp.SqlExecutor, id string) (*domain.User, error) {
-	var e Entity
-	q := strings.Join([]string{
-		"SELECT * FROM",
-		tableName,
-		"WHERE id=?",
-	}, " ")
-	if err := sqle.SelectOne(&e, q, id); err != nil {
-		return nil, err
-	}
-
-	return e.Domain(), nil
 }
 
 func (*repo) Create(ctx context.Context, sqle gorp.SqlExecutor, u *domain.User) error {
