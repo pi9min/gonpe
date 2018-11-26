@@ -24,24 +24,24 @@ DEV_APPYAML_PATH := "$(ROOT)/appengine/app.local.yaml"
 APPYAML_PATH := "$(ROOT)/appengine/app.yaml"
 CRONYAML_PATH := "$(ROOT)/appengine/cron.yaml"
 DISPATCHYAML_PATH := "$(ROOT)/appengine/dispatch.yaml"
-PROTO_PATH := "$(ROOT)/server/proto"
+PROTO_PATH := "$(ROOT)/proto"
+SERVER_PROTO_PATH := "$(ROOT)/server/proto"
 
 ######## Rules
 dep:
 	cd $(SERVER_ROOT); go mod download
 
 clean:
-	rm -f $(PROTO_PATH)/**/*{pb,http,validate}.go
+	rm -f $(SERVER_PROTO_PATH)/**/*{pb,http,validate}.go
 
 gen:
 	protoc \
 	-I $(PROTO_PATH) \
 	-I $(GOPATH)/src \
 	-I $(GOPATH)/src/github.com/lyft/protoc-gen-validate \
-	--proto_path=$(PROTO_PATH) \
-	--go_out=plugins=grpc:$(PROTO_PATH) \
-	--gohttp_out=$(PROTO_PATH) \
-	--validate_out=lang=go:$(PROTO_PATH) \
+	--go_out=plugins=grpc:$(SERVER_PROTO_PATH) \
+	--gohttp_out=$(SERVER_PROTO_PATH) \
+	--validate_out=lang=go:$(SERVER_PROTO_PATH) \
 	$(PROTO_PATH)/**/*.proto
 
 test: gen
