@@ -1,7 +1,23 @@
 package firebase
 
-import firebase "firebase.google.com/go"
+import (
+	"context"
 
-type client struct {}
+	"firebase.google.com/go"
+)
 
-func NewClient() *firebase.
+var app *firebase.App
+
+func NewApp(ctx context.Context) (*firebase.App, error) {
+	if app != nil {
+		return app, nil
+	}
+
+	var err error
+	app, err = firebase.NewApp(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return app, nil
+}

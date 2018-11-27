@@ -14,7 +14,13 @@ type client struct {
 	gorp.SqlExecutor
 }
 
+var cli *client
+
 func NewClient(dsn string) (*client, error) {
+	if cli != nil {
+		return cli, nil
+	}
+
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
@@ -50,7 +56,8 @@ func NewClient(dsn string) (*client, error) {
 		return nil, err
 	}
 
-	return &client{
+	cli = &client{
 		SqlExecutor: dbMap,
-	}, nil
+	}
+	return cli, nil
 }
