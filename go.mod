@@ -1,6 +1,7 @@
 module github.com/pi9min/gonpe
 
 require (
+	github.com/gbrlsnchs/jwt/v2 v2.0.0 // indirect
 	github.com/go-chi/chi v3.3.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.2.0
