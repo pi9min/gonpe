@@ -7,5 +7,10 @@ handlers:
   secure: always
   script: auto
 
+- url: /(.*\.html)$
+  static_files: ../frontend/view/\1
+  upload: ../frontend/view/.*\.html$
+
+
 env_variables:
   GONPE_MYSQL_DSN: user:password@tcp/gonpe?parseTime=true
