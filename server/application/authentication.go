@@ -2,6 +2,7 @@ package application
 
 import (
 	"context"
+	"time"
 
 	"github.com/pi9min/gonpe/server/application/repository"
 	"github.com/pi9min/gonpe/server/domain"
@@ -17,18 +18,19 @@ func NewAuthenticationApp(repos *repository.AllRepository) *AuthenticationApp {
 	}
 }
 
-func (a *AuthenticationApp) SignIn(ctx context.Context, email, password string) (string, error) {
-	u, err := a.repos.User.GetByEmail(ctx, a.repos.MySQL, email)
+func (a *AuthenticationApp) RegisterGuestUser(ctx context.Context, authProviderUserID string, now time.Time) error {
+	u := domain.NewGuest(authProviderUserID, now)
+	if err := a.repos.User.Create(ctx, a.repos.MySQL, u); err != nil {
+		return err
+	}
+
+	cli, err := a.repos.Firebase.Auth(ctx)
 	if err != nil {
-		if err == domain.ErrNotFound {
-			return "", ErrUserNotFound
-		}
-		return "", err
+		return err
+	}
+	if err := cli.SetCustomUserClaims(ctx, u.AuthProviderUserID, u.FirebaseCustomUserClaims()); err != nil {
+		return err
 	}
 
-	if err := u.ComparePassword(password); err != nil {
-		return "", ErrPasswordNotMatch
-	}
-
-	return "token", nil
+	return nil
 }

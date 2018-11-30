@@ -8,16 +8,16 @@ require (
 	github.com/go-gorp/gorp v2.0.0+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/golang/protobuf v1.2.0
+	github.com/google/martian v2.1.0+incompatible // indirect
 	github.com/googleapis/gax-go v2.0.2+incompatible // indirect
 	github.com/kelseyhightower/envconfig v1.3.0
 	github.com/lib/pq v1.0.0 // indirect
 	github.com/lyft/protoc-gen-star v0.4.5 // indirect
-	github.com/lyft/protoc-gen-validate v0.0.11
+	github.com/lyft/protoc-gen-validate v0.0.12-0.20181129182303-5bc324a895ab
 	github.com/mattn/go-sqlite3 v1.10.0 // indirect
 	github.com/nametake/protoc-gen-gohttp v0.0.0-20181121045253-2ebc4a7615c2
 	github.com/onsi/ginkgo v1.7.0 // indirect
 	github.com/onsi/gomega v1.4.3 // indirect
-	github.com/pi9min/gorp v2.0.0+incompatible
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/poy/onpar v0.0.0-20181125144932-f2f06780798d // indirect
 	github.com/rs/xid v1.2.1
@@ -28,7 +28,7 @@ require (
 	golang.org/x/crypto v0.0.0-20181112202954-3d3f9f413869
 	golang.org/x/net v0.0.0-20181114220301-adae6a3d119a
 	golang.org/x/sys v0.0.0-20181119195503-ec83556a53fe // indirect
-	google.golang.org/api v0.0.0-20181126234655-bed42c95df7d // indirect
+	google.golang.org/api v0.0.0-20181126234655-bed42c95df7d
 	google.golang.org/appengine v1.3.0 // indirect
 	google.golang.org/genproto v0.0.0-20181109154231-b5d43981345b // indirect
 	google.golang.org/grpc v1.16.0

@@ -15,8 +15,8 @@ endif
 # set root path
 MAKE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 ROOT := $(realpath $(MAKE_DIR)/..)
-SERVER_ROOT := $(MAKE_DIR)
-export GOBIN=$(ROOT)/bin
+SERVER_ROOT := $(ROOT)/server
+export GOBIN=$(SERVER_ROOT)/bin
 
 ######## Vars
 DEV_STORAGE_PATH := "/tmp/ponpe_devappserver_storage"

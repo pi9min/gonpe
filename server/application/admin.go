@@ -6,6 +6,7 @@ import (
 
 	"github.com/pi9min/gonpe/server/application/repository"
 	"github.com/pi9min/gonpe/server/domain"
+	"github.com/pi9min/gonpe/server/proto"
 )
 
 type AdminApp struct {
@@ -22,20 +23,26 @@ func (a *AdminApp) GetAllUser(ctx context.Context) ([]*domain.User, error) {
 	return a.repos.User.GetAll(ctx, a.repos.MySQL)
 }
 
-func (a *AdminApp) CreateUser(ctx context.Context, email, password string, now time.Time) error {
-	exist, err := a.repos.User.ExistByEmail(ctx, a.repos.MySQL, email)
+func (a *AdminApp) ChangeRole(ctx context.Context, uID string, role pb.Role, now time.Time) error {
+	u, err := a.repos.User.Get(ctx, a.repos.MySQL, uID)
+	if err != nil {
+		if err == domain.ErrNotFound {
+			return ErrUserNotFound
+		}
+	}
+
+	u.ChangeRole(role, now)
+	if err := a.repos.User.Update(ctx, a.repos.MySQL, u); err != nil {
+		return err
+	}
+
+	cli, err := a.repos.Firebase.Auth(ctx)
 	if err != nil {
 		return err
 	}
-
-	if exist {
-		return ErrUserAlreadyExist
-	}
-
-	u := domain.NewGuest(email, now)
-	if err := u.SetPassword(password); err != nil {
+	if err := cli.SetCustomUserClaims(ctx, u.AuthProviderUserID, u.FirebaseCustomUserClaims()); err != nil {
 		return err
 	}
 
-	return a.repos.User.Create(ctx, a.repos.MySQL, u)
+	return nil
 }

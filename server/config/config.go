@@ -5,7 +5,8 @@ import (
 )
 
 type Config struct {
-	MysqlDsn string `required:"true" split_words:"true"`
+	MysqlDsn                        string `required:"true" split_words:"true"`
+	Base64FirebaseServiceAccountKey string `required:"true" split_words:"true"`
 }
 
 var Gonpe Config

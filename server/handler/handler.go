@@ -33,10 +33,10 @@ func NewHandler(
 
 		// Admin
 		r.Post(csRestPath(adminConv.GetAllUserWithName(withErrorLog)))
-		r.Post(csRestPath(adminConv.CreateGuestUserWithName(withErrorLog)))
+		r.Post(csRestPath(adminConv.ChangeRoleWithName(withErrorLog)))
 
 		// Authentication
-		r.Post(csRestPath(authenticationConv.SignInWithName(withErrorLog)))
+		r.Post(csRestPath(authenticationConv.RegisterGuestUserWithName(withErrorLog)))
 	})
 
 	return r

@@ -31,16 +31,15 @@ func (h *Handler) GetAllUser(ctx context.Context, req *pb.GetAllUserReq) (*pb.Ge
 	}, nil
 }
 
-func (h *Handler) CreateGuestUser(ctx context.Context, req *pb.CreateGuestUserReq) (*pb.CreateGuestUserResp, error) {
-	now := time.Now()
-
+func (h *Handler) ChangeRole(ctx context.Context, req *pb.ChangeRoleReq) (*pb.ChangeRoleResp, error) {
 	if err := req.Validate(); err != nil {
 		return nil, err
 	}
 
-	if err := h.adminApp.CreateUser(ctx, req.Email, req.Password, now); err != nil {
+	now := time.Now()
+	if err := h.adminApp.ChangeRole(ctx, req.UserId, req.Role, now); err != nil {
 		return nil, err
 	}
 
-	return &pb.CreateGuestUserResp{}, nil
+	return &pb.ChangeRoleResp{}, nil
 }

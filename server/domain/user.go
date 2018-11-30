@@ -9,31 +9,21 @@ import (
 )
 
 type User struct {
-	ID                string
-	Role              pb.User_Role
-	Email             string
-	EncryptedPassword *EncryptedPassword
-	CreatedAt         time.Time
-	UpdatedAt         time.Time
+	ID                 string
+	AuthProviderUserID string
+	Role               pb.Role
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
 }
 
-func NewGuest(email string, now time.Time) *User {
+func NewGuest(uID string, now time.Time) *User {
 	return &User{
-		ID:                mysqlutil.NewID(),
-		Role:              pb.User_ROLE_GUEST,
-		Email:             email,
-		EncryptedPassword: NewEmptyPassword(),
-		CreatedAt:         now,
-		UpdatedAt:         now,
+		ID:                 mysqlutil.NewID(),
+		AuthProviderUserID: uID,
+		Role:               pb.Role_ROLE_GUEST,
+		CreatedAt:          now,
+		UpdatedAt:          now,
 	}
-}
-
-func (u *User) SetPassword(pass string) error {
-	return u.EncryptedPassword.Set(pass)
-}
-
-func (u *User) ComparePassword(pass string) error {
-	return u.EncryptedPassword.Compare(pass)
 }
 
 func (u *User) Proto() (*pb.User, error) {
@@ -47,10 +37,26 @@ func (u *User) Proto() (*pb.User, error) {
 	}
 
 	return &pb.User{
-		Id:        u.ID,
-		Role:      u.Role,
-		Email:     u.Email,
-		CreatedAt: cAt,
-		UpdatedAt: uAt,
+		Id:                 u.ID,
+		AuthProviderUserId: u.AuthProviderUserID,
+		Role:               u.Role,
+		CreatedAt:          cAt,
+		UpdatedAt:          uAt,
 	}, nil
+}
+
+func (u *User) ChangeRole(r pb.Role, now time.Time) {
+	u.Role = r
+	u.updateTimestamp(now)
+}
+
+func (u *User) FirebaseCustomUserClaims() map[string]interface{} {
+	claims := map[string]interface{}{
+		"role": u.Role.String(),
+	}
+	return claims
+}
+
+func (u *User) updateTimestamp(now time.Time) {
+	u.UpdatedAt = now
 }

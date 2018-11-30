@@ -6,15 +6,12 @@ import "validate/validate.proto";
 
 // Endpoint
 service Authentication {
-    rpc SignIn(SignInReq) returns (SignInResp);
+    rpc RegisterGuestUser(RegisterGuestUserReq) returns (RegisterGuestUserResp);
 }
 
 // Req / Resp
-message SignInReq {
-    string email = 1 [(validate.rules).string.email = true];
-    string password = 2 [(validate.rules).string.min_len = 12];
+message RegisterGuestUserReq {
+    string auth_provider_user_id = 1;
 }
 
-message SignInResp {
-    string access_token = 1;
-}
+message RegisterGuestUserResp {}

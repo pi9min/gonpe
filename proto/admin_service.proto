@@ -2,13 +2,13 @@ syntax = "proto3";
 package gonpe.server.admin_service;
 option go_package = "pb";
 
-import "user.proto";
 import "validate/validate.proto";
+import "user.proto";
 
 // Endpoint
 service Admin {
     rpc GetAllUser(GetAllUserReq) returns (GetAllUserResp);
-    rpc CreateGuestUser(CreateGuestUserReq) returns (CreateGuestUserResp);
+    rpc ChangeRole(ChangeRoleReq) returns (ChangeRoleResp);
 }
 
 // Req / Resp
@@ -18,9 +18,9 @@ message GetAllUserResp {
     repeated gonpe.server.user.User users = 1;
 }
 
-message CreateGuestUserReq {
-    string email = 1 [(validate.rules).string.email = true];
-    string password = 2 [(validate.rules).string.min_len = 12];
+message ChangeRoleReq {
+    string user_id = 1;
+    gonpe.server.user.Role role = 2 [(validate.rules).enum.defined_only = true];
 }
 
-message CreateGuestUserResp {}
+message ChangeRoleResp {}

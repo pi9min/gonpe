@@ -9,7 +9,7 @@ import (
 	"github.com/pi9min/gonpe/server/domain"
 	"github.com/pi9min/gonpe/server/proto"
 	mysqlutil "github.com/pi9min/gonpe/server/util/mysql"
-	"github.com/pi9min/gorp"
+	"gopkg.in/gorp.v2"
 )
 
 var _ mysqlutil.EntityBehavior = (*Entity)(nil)
@@ -17,22 +17,20 @@ var _ mysqlutil.EntityBehavior = (*Entity)(nil)
 const tableName = "user"
 
 type Entity struct {
-	ID           string       `db:"id"`
-	Role         pb.User_Role `db:"role"`
-	Email        string       `db:"email"`
-	PasswordHash string       `db:"password_hash"`
-	CreatedAt    time.Time    `db:"created_at"`
-	UpdatedAt    time.Time    `db:"updated_at"`
+	ID                 string    `db:"id"`
+	AuthProviderUserID string    `db:"auth_provider_user_id"`
+	Role               pb.Role   `db:"role"`
+	CreatedAt          time.Time `db:"created_at"`
+	UpdatedAt          time.Time `db:"updated_at"`
 }
 
 func NewEntity(u *domain.User) *Entity {
 	return &Entity{
-		ID:           u.ID,
-		Role:         u.Role,
-		Email:        u.Email,
-		PasswordHash: u.EncryptedPassword.String(),
-		CreatedAt:    u.CreatedAt,
-		UpdatedAt:    u.UpdatedAt,
+		ID:                 u.ID,
+		AuthProviderUserID: u.AuthProviderUserID,
+		Role:               u.Role,
+		CreatedAt:          u.CreatedAt,
+		UpdatedAt:          u.UpdatedAt,
 	}
 }
 
@@ -50,12 +48,11 @@ func (e *Entity) Indexes() mysqlutil.Indexes {
 
 func (e *Entity) Domain() *domain.User {
 	return &domain.User{
-		ID:                e.ID,
-		Role:              e.Role,
-		Email:             e.Email,
-		EncryptedPassword: domain.NewEncryptedPassword(e.PasswordHash),
-		CreatedAt:         e.CreatedAt,
-		UpdatedAt:         e.UpdatedAt,
+		ID:                 e.ID,
+		Role:               e.Role,
+		AuthProviderUserID: e.AuthProviderUserID,
+		CreatedAt:          e.CreatedAt,
+		UpdatedAt:          e.UpdatedAt,
 	}
 }
 
@@ -65,14 +62,14 @@ func NewRepository() *repo {
 	return &repo{}
 }
 
-func (*repo) ExistByEmail(ctx context.Context, sqle gorp.SqlExecutor, email string) (bool, error) {
+func (*repo) ExistByAuthProviderUserID(ctx context.Context, sqle gorp.SqlExecutor, uID string) (bool, error) {
 	var e Entity
 	q := strings.Join([]string{
 		"SELECT * FROM",
 		tableName,
-		"WHERE email=?",
+		"WHERE auth_provider_user_id=?",
 	}, " ")
-	if err := sqle.SelectOne(&e, q, email); err != nil {
+	if err := sqle.SelectOne(&e, q, uID); err != nil {
 		if err == sql.ErrNoRows {
 			return false, nil
 		}
@@ -99,14 +96,14 @@ func (*repo) Get(ctx context.Context, sqle gorp.SqlExecutor, id string) (*domain
 	return e.Domain(), nil
 }
 
-func (*repo) GetByEmail(ctx context.Context, sqle gorp.SqlExecutor, email string) (*domain.User, error) {
+func (*repo) GetByAuthProviderUserID(ctx context.Context, sqle gorp.SqlExecutor, uID string) (*domain.User, error) {
 	var e Entity
 	q := strings.Join([]string{
 		"SELECT * FROM",
 		tableName,
-		"WHERE email=?",
+		"WHERE auth_provider_user_id=?",
 	}, " ")
-	if err := sqle.SelectOne(&e, q, email); err != nil {
+	if err := sqle.SelectOne(&e, q, uID); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, domain.ErrNotFound
 		}
