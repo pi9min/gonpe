@@ -1,4 +1,9 @@
+# proto
 *.pb.go
 *.http.go
 *.validate.go
 !.keep
+
+# binary
+!*bin/tool.go
+bin/
