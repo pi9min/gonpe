@@ -3,7 +3,7 @@
 # Unconditionally make all targets.
 MAKEFLAGS=--no-builtin-rules \
           --no-builtin-variables \
-                  --always-make
+          --always-make
 
 # Fixes a bug in OSX Make with exporting PATH environment variables
 # See: http://stackoverflow.com/questions/11745634/setting-path-variable-from-inside-makefile-does-not-work-for-make-3-81
@@ -16,7 +16,8 @@ endif
 MAKE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 ROOT := $(realpath $(MAKE_DIR)/..)
 SERVER_ROOT := $(ROOT)/server
-export GOBIN=$(SERVER_ROOT)/bin
+export PATH := $(ROOT)/bin:$(PATH)
+export GOBIN := $(ROOT)/bin
 
 ######## Vars
 DEV_STORAGE_PATH := "/tmp/ponpe_devappserver_storage"
@@ -29,7 +30,16 @@ SERVER_PROTO_PATH := "$(ROOT)/server/proto"
 
 ######## Rules
 dep:
-	cd $(SERVER_ROOT); go mod download
+	cd $(ROOT); go mod download
+
+clean_bin:
+	find bin ! -name tools.go -type f -exec rm -f {} \;
+
+install_bin:
+	go get github.com/golang/protobuf/protoc-gen-go
+	go get github.com/lyft/protoc-gen-validate@master
+	go get github.com/nametake/protoc-gen-gohttp
+	go get google.golang.org/grpc
 
 clean:
 	rm -f $(SERVER_PROTO_PATH)/**/*{pb,http,validate}.go

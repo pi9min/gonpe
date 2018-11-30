@@ -13,9 +13,9 @@ require (
 	github.com/kelseyhightower/envconfig v1.3.0
 	github.com/lib/pq v1.0.0 // indirect
 	github.com/lyft/protoc-gen-star v0.4.5 // indirect
-	github.com/lyft/protoc-gen-validate v0.0.12-0.20181129182303-5bc324a895ab
+	github.com/lyft/protoc-gen-validate v0.0.12-0.20181129182303-5bc324a895ab // indirect
 	github.com/mattn/go-sqlite3 v1.10.0 // indirect
-	github.com/nametake/protoc-gen-gohttp v0.0.0-20181121045253-2ebc4a7615c2
+	github.com/nametake/protoc-gen-gohttp v0.0.0-20181121045253-2ebc4a7615c2 // indirect
 	github.com/onsi/ginkgo v1.7.0 // indirect
 	github.com/onsi/gomega v1.4.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

@@ -31,6 +31,14 @@ gcloud config set project <your_project>
 export GO111MODULES=on
 ```
 
+# Install executable command
+
+`make install_bin`
+
+# Clean executable command
+
+`make clean_bin`
+
 # Install dependency
 
 `make dep`
@@ -43,6 +51,6 @@ export GO111MODULES=on
 
 `make gen`
 
-# Clean
+# Clean proto
 
 `make clean`
